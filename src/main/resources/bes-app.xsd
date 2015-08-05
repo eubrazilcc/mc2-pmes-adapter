@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="xs3p.xsl"?>
+<schema targetNamespace="http://lncc.br/sinapad/adapter/bes/application/xml/element/"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:tns="http://lncc.br/sinapad/adapter/bes/application/xml/element/">
+    <element name="app-config" type="tns:app-config"/>
+    <complexType name="app-config">
+        <annotation>
+            <documentation>Application Configuration</documentation>
+        </annotation>
+        <sequence maxOccurs="1" minOccurs="0">
+            <element maxOccurs="1" minOccurs="0" name="wallclocktime" type="int">
+                <annotation>
+                    <documentation>Maximum amount of time the execution should take</documentation>
+                </annotation>
+            </element>
+            <element maxOccurs="1" minOccurs="0" name="classpath" type="string">
+                <annotation>
+                    <documentation>Classpath of a compss application</documentation>
+                </annotation>
+            </element>
+            <element maxOccurs="1" minOccurs="1" name="executable" type="string">
+                <annotation>
+                    <documentation>The executable file</documentation>
+                </annotation>
+            </element>
+            <element maxOccurs="unbounded" minOccurs="0" name="group" type="tns:group"> </element>
+            <element maxOccurs="1" minOccurs="1" name="compss" type="boolean"> </element>
+            <element maxOccurs="1" minOccurs="0" name="vm-parameters" type="tns:vm-parameters"> </element>
+            <element maxOccurs="1" minOccurs="0" name="app-location" type="string">
+                <annotation>
+                    <documentation>Location of the application in a cdmi server</documentation>
+                </annotation>
+            </element>
+            <element maxOccurs="1" minOccurs="0" name="pmes-deploy-path" type="string">
+                <annotation>
+                    <documentation>Path where the files will be deployed in the virtual
+                        machine</documentation>
+                </annotation>
+            </element>
+            <element maxOccurs="1" minOccurs="0" name="pmes-app-deploy-path" type="string">
+                <annotation>
+                    <documentation>Path where the application will be deployed in the virtual
+                        machine</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="parameter">
+        <attribute name="name" type="string" use="required">
+            <annotation>
+                <documentation>Parameter name.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="label" type="string" use="optional">
+            <annotation>
+                <documentation>Parameter Label.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="tip" type="string" use="optional">
+            <annotation>
+                <documentation>A tip containing useful information about the
+                    parameter</documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <complexType name="group">
+        <annotation>
+            <documentation>Group of parameters</documentation>
+        </annotation>
+        <sequence maxOccurs="1" minOccurs="0">
+            <element maxOccurs="unbounded" minOccurs="0" name="string" type="tns:string"> </element>
+            <element maxOccurs="unbounded" minOccurs="0" name="file" type="tns:file"> </element>
+            <element maxOccurs="unbounded" minOccurs="0" name="double" type="tns:double"/>
+            <element maxOccurs="unbounded" minOccurs="0" name="integer" type="tns:integer"
+            > </element>
+        </sequence>
+        <attribute name="label" type="string">
+            <annotation>
+                <documentation>Group label</documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <complexType name="file">
+        <complexContent>
+            <extension base="tns:parameter">
+                <sequence/>
+                <attribute name="stage" use="required">
+                    <annotation>
+                        <documentation>IN if the file is an input file or OUT if the file is an
+                            output file.</documentation>
+                    </annotation>
+                    <simpleType>
+                        <restriction base="string">
+                            <enumeration value="IN"/>
+                            <enumeration value="OUT"/>
+                        </restriction>
+                    </simpleType>
+                </attribute>
+                <attribute name="category">
+                    <annotation>
+                        <documentation>Directory if the parameter is a directory or file if it is a
+                            file.</documentation>
+                    </annotation>
+                    <simpleType>
+                        <restriction base="string">
+                            <enumeration value="directory"/>
+                            <enumeration value="file"/>
+                        </restriction>
+                    </simpleType>
+                </attribute>
+                <attribute name="value" type="string">
+                    <annotation>
+                        <documentation>Should be empty so the portal will fill it</documentation>
+                    </annotation>
+                </attribute>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="string">
+        <annotation>
+            <documentation>String parameter</documentation>
+        </annotation>
+        <complexContent>
+            <extension base="tns:parameter">
+                <attribute name="value" type="string">
+                    <annotation>
+                        <documentation>String parameter</documentation>
+                    </annotation>
+                </attribute>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="integer">
+        <annotation>
+            <documentation>Integer parameter.</documentation>
+        </annotation>
+        <complexContent>
+            <extension base="tns:parameter">
+                <attribute name="value" type="integer" use="optional">
+                    <annotation>
+                        <documentation>Integer value</documentation>
+                    </annotation>
+                </attribute>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="double">
+        <annotation>
+            <documentation>Double parameter</documentation>
+        </annotation>
+        <complexContent>
+            <extension base="tns:parameter">
+                <attribute name="value" type="double">
+                    <annotation>
+                        <documentation>Double value</documentation>
+                    </annotation>
+                </attribute>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="vm-parameters">
+        <annotation>
+            <documentation>Virtual Machine parameters</documentation>
+        </annotation>
+        <sequence>
+            <element maxOccurs="1" minOccurs="0" name="vm" type="string">
+                <annotation>
+                    <documentation>Virtual Machine name that is installed at the pmes
+                        endpoint</documentation>
+                </annotation>
+            </element>
+            <element maxOccurs="1" minOccurs="0" name="memory" type="double">
+                <annotation>
+                    <documentation>How much memory the virtual machine will have</documentation>
+                </annotation>
+            </element>
+            <element maxOccurs="1" minOccurs="0" name="cores" type="int">
+                <annotation>
+                    <documentation>How many cores the virtual machine will have</documentation>
+                </annotation>
+            </element>
+            <element maxOccurs="1" minOccurs="0" name="size" type="double">
+                <annotation>
+                    <documentation>How much disk space the virtual machine will
+                        have.</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+</schema>

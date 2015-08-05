@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://lncc.br/sinapad/adapter/bes/application/xml/element/"
+	targetNamespace="http://lncc.br/sinapad/adapter/bes/application/xml/element/">
+	<element name="app-config" type="tns:app-config"></element>
+	<complexType name="app-config">
+        <sequence minOccurs="0" maxOccurs="1">
+        	<element name="wallclocktime" type="int" maxOccurs="1"
+        		minOccurs="0">
+        	</element>
+        	<element name="classpath" type="string" minOccurs="0"
+        		maxOccurs="1">
+        	</element>
+        	<element name="executable" type="string" minOccurs="1"
+        		maxOccurs="1">
+        	</element>
+        	<element name="group" type="tns:group" minOccurs="0"
+        		maxOccurs="unbounded">
+        	</element>
+        	<element name="compss" type="boolean" maxOccurs="1"
+        		minOccurs="1">
+        	</element>
+        	<element name="vm-parameters" type="tns:vm-parameters"
+        		maxOccurs="1" minOccurs="0">
+        	</element>
+        	<element name="app-location" type="string" maxOccurs="1" minOccurs="0"></element>
+        </sequence>
+	</complexType>
+	<complexType name="parameter">
+		<attribute name="name" type="string" use="required"></attribute>
+		<attribute name="label" type="string" use="optional"></attribute>
+		<attribute name="tip" type="string" use="optional"></attribute>
+	</complexType>
+	<complexType name="group">
+        <sequence minOccurs="0" maxOccurs="1">
+        	<element name="string" type="tns:string" minOccurs="0" maxOccurs="unbounded">
+        	</element>
+        	<element name="file" type="tns:file" minOccurs="0" maxOccurs="unbounded">
+        	</element>
+        	<element name="double" type="tns:double" minOccurs="0" maxOccurs="unbounded"></element>
+        	<element name="integer" type="tns:integer" minOccurs="0" maxOccurs="unbounded">
+        	</element>
+        </sequence>
+        <attribute name="label" type="string"></attribute>
+	</complexType>
+	<complexType name="file">
+		<complexContent>
+			<extension base="tns:parameter">
+				<sequence></sequence>
+				<attribute name="stage" use="required">
+					<simpleType>
+						<restriction base="string">
+							<enumeration value="IN"></enumeration>
+							<enumeration value="OUT"></enumeration>
+						</restriction>
+					</simpleType>
+				</attribute>
+				<attribute name="category">
+					<simpleType>
+						<restriction base="string">
+							<enumeration value="directory"></enumeration>
+							<enumeration value="file"></enumeration>
+						</restriction>
+					</simpleType>
+				</attribute>
+				<attribute name="value" type="string"></attribute>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="string">
+		<complexContent>
+			<extension base="tns:parameter">
+				<attribute name="value" type="string"></attribute>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="integer">
+		<complexContent>
+			<extension base="tns:parameter">
+				<attribute name="value" type="integer" use="optional"></attribute>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="double">
+		<complexContent>
+			<extension base="tns:parameter">
+				<attribute name="value" type="double"></attribute>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="vm-parameters">
+		<sequence>
+			<element name="vm" type="string" maxOccurs="1" minOccurs="0"></element>
+			<element name="memory" type="double" maxOccurs="1" minOccurs="0"></element>
+			<element name="cores" type="int" maxOccurs="1" minOccurs="0"></element>
+			<element name="size" type="double" maxOccurs="1" minOccurs="0"></element>
+		</sequence>
+	</complexType>
+</schema>

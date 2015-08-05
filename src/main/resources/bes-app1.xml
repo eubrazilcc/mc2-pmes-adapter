@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:app-config xmlns:tns="http://lncc.br/sinapad/adapter/bes/application/xml/element/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://lncc.br/sinapad/adapter/bes/application/xml/element/ bes-app.xsd ">
+  <wallclocktime>0</wallclocktime>
+  <classpath>classpath</classpath>
+  <executable>executable</executable>
+  <group label="">
+    <string label="" name="" tip="" value=""/>
+    <file category="directory" label="" name="" stage="IN" tip="" value=""/>
+    <double label="" name="" tip="" value="0.0"/>
+    <integer label="" name="" tip="" value="0"/>
+  </group>
+  <compss>true</compss>
+  <vm-parameters>
+    <vm>vm</vm>
+    <memory>0.0</memory>
+    <cores>0</cores>
+    <size>0.0</size>
+  </vm-parameters>
+  <app-location>app-location</app-location>
+  <pmes-deploy-path>pmes-deploy-path</pmes-deploy-path>
+  <pmes-app-deploy-path>pmes-app-deploy-path</pmes-app-deploy-path>
+</tns:app-config>
